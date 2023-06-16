@@ -28,7 +28,7 @@ in {
         let
           prim = either bool (either int str);
           primOrPrimAttrs = either prim (attrsOf prim);
-          entry = either prim (listOf primOrPrimAttrs);
+          entry = lazyAttrsOf (either prim (listOf primOrPrimAttrs));
           entryOrAttrsOf = t: either entry (attrsOf t);
           entries = entryOrAttrsOf (entryOrAttrsOf entry);
         in attrsOf entries // { description = "Starship configuration"; };
